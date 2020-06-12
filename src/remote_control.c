@@ -1,35 +1,15 @@
 #include "remote_control.h"
 #include "server.h"
+#include "server_threads.h"
+#include "shared_data.h"
 #include <windows.h>
 
-// The GameData that matches the actual state of the game
-struct GameData existingGameData = {};
+// The configuration and state of the game
+struct SharedData sharedData = {};
 
 void log_print(const char* message)
 {
     log_printf("[Remote Control] %s\n", message);
-}
-
-int create_remote_address(struct GameData* gamedata, const char* name, void* game_address)
-{
-    // The one missing piece of information
-    struct RemoteAddress* value;
-    void* data_address;
-    size_t size;
-    if (strcmp(name, "score"))
-    {
-        value = &gamedata->values[RA_SCORE];
-        data_address = &gamedata->score;
-        size = sizeof(gamedata->score);
-    }
-    else
-    {
-        return 1; //Couldn't find the value
-    }
-    value->game_address = game_address;
-    value->data_address = data_address;
-    value->size = size;
-    return 0;
 }
 
 EXPORT int thcrap_plugin_init(void)
@@ -57,11 +37,12 @@ EXPORT int remote_mod_init(void)
             continue;
         }
 
-        create_remote_address(&existingGameData, key, (void *)address);
+        create_remote_address(&sharedData, key, (void *)address);
 
         log_printf("[Remote Control] Found item %s at location 0x%p\n", key, address);
     }
-    return server_initialize("8646", &existingGameData); //0 if good, error is automatically logged otherwise
+    sharedData.port = "8646";
+    return server_initialize(&sharedData); //0 if good, error is automatically logged otherwise
 }
 
 EXPORT int BP_main_loop(x86_reg_t *regs, json_t *bp_info)

@@ -5,27 +5,6 @@
 #include <thcrap.h>
 #include <thcrap_tsa.h>
 
-enum RemoteAddressTypes
-{
-    RA_SCORE
-};
-
-struct RemoteAddress
-{
-    void* game_address;
-    void* data_address;
-    size_t size;
-};
-
-struct GameData
-{
-    struct RemoteAddress values[1];
-    uint32_t score;
-};
-
-// Fills in the GameData with the information of the shown event
-int create_remote_address(struct GameData* gamedata, const char* name, void* game_address);
-
 // Print a message to logs, tagging as from this plugin
 // Used mostly for debug prints
 void log_print(const char*);
