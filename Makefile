@@ -1,5 +1,5 @@
 CC := i686-w64-mingw32-gcc
-CC_FLAGS := -Wall -m32 -shared -I include/ -L lib -aux-info aux.txt
+CC_FLAGS := -Wall -m32 -shared -I include/ -L lib
 BIN := remote.dll
 LIB_FLAGS := -lthcrap_tsa -lthcrap -ljansson -lws2_32
 SRC_DIR := src
