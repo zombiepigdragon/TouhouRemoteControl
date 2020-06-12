@@ -133,16 +133,25 @@ DWORD WINAPI server_threadmain(LPVOID lpdwThreadParam) // FIXME: Put memory read
         if (clientSocket == INVALID_SOCKET)
         {
             clientSocket = accept_client(listenSocket);
+            log_print("Connection initiated!");
             lock_server_mutex(); // Make sure we're in a clean state
             continue;
         }
         int readLength = read_from_socket(clientSocket, buffer, bufferLen);
+        if (readLength <= 0)
+        {
+            closesocket(clientSocket);
+            clientSocket = INVALID_SOCKET;
+            log_print("Connection closed.");
+            lock_server_mutex();
+            continue;
+        }
         lock_server_mutex();
         if (!ReadProcessMemory(GetCurrentProcess(), data->values[RA_SCORE].game_address, &data->score, data->values[RA_SCORE].size, NULL))
         {
             log_printf("[Remote Control] Failed to read %d bytes from memory value 0x%p.\n", data->values[RA_SCORE].size, data->values[RA_SCORE].game_address);
         }
-        readLength = snprintf(buffer, bufferLen, "%d", data->score * 10);
+        readLength = snprintf(buffer, bufferLen, "%d\n", data->score * 10);
         send_to_socket(clientSocket, buffer, readLength);
         
     } while(serverState == SERVER_SUCCESS);
