@@ -8,5 +8,11 @@
 			"addr": "0x4b0c98",
 			"size": 1
 		}
-    }
+	},
+	"breakpoints": {
+		"main_loop": {
+			"addr": "0x402835",
+			"cavesize": 5
+		}
+	}
 }
