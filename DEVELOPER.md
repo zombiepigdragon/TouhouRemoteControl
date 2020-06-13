@@ -5,18 +5,17 @@ None of this is under warranty of any kind, it's just little notes that may or m
 
 # TODOS:
 1) Implement a more robust configuration system (arbitrary names for game specific functionality)
-2) Move syncing functionality to a breakpoint, allowing stepping by frame and sanely allowing multiple clients
+2) ~~Move syncing functionality to a breakpoint, allowing stepping by frame and sanely allowing multiple clients~~ (Done!)
 3) Tie into thcrap better; cleanup and configuration updates would be good
-4) Rename a lot of the more mediocre variables/functions while I still can
-5) Actually support the games properly
-6) Document *everything* so I actually understand my own code
-7) (Maybe) Add to thcrap launcher, if plugins with code are allowed
-8) (Maybe) Provide an official GUI for some tasks
+4) Actually support the games properly
+5) Document *everything* so I actually understand my own code
+6) (Maybe) Add to thcrap launcher, if plugins with code are allowed
+7) (Maybe) Provide compatible programs for the sake of being usable
 
-# Source file locations
+# Included source file's sources
 
 ## Header files
-Header files come from a variety of repositories. Basically, just copy whatever is giving errors into `/include` until everything's defined.
+Header files come from a variety of repositories. Basically, just copy whatever is missing into `/include` until everything's defined.
 The most notable sources are:
 - thcrap:
    - thcrap/thcrap/src/*.h
@@ -43,4 +42,4 @@ These include
 
 Note that these will **ONLY** work when the functions are correctly exported, which is pretty easy to forget to do. Make sure not to do that.
 
-We simply spawn a new thread to run a server, and use it to handle connections. This is done with winsock, a handy and not POSIX compliant in the least library from Microsoft. See /src/server.c for some information about that.
+We simply spawn a new thread to run a server, and use it to handle connections. This is done with winsock, a handy and not POSIX compliant in the least library from Microsoft. See [/src/server.c](src/server.c) for some information about that.
