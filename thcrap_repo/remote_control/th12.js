@@ -11,8 +11,8 @@
 	},
 	"breakpoints": {
 		"main_loop": {
-			"addr": "0x402835",
-			"cavesize": 5
+			"addr": "0x436baf",
+			"cavesize": 6
 		}
 	}
 }
