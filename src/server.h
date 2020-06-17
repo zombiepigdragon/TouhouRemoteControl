@@ -19,6 +19,6 @@ int handle_connection(SOCKET clientSocket, struct SharedData* sharedData);
 // Reads bufferLen bytes from socket to buffer
 // Returns number of bytes read or -1 on error
 int read_from_socket(SOCKET socket, char* buffer, int bufferLen);
-// Writes bufferLen bytes from buffer to socket
+// Writes bufferLen bytes from buffer to socket, accounting for buffering
 // Returns 0 on success, anything else on error
 int write_to_socket(SOCKET socket, char* buffer, int bufferLen);

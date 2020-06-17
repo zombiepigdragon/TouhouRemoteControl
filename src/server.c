@@ -64,14 +64,16 @@ int handle_connection(SOCKET clientSocket, struct SharedData* sharedData)
 {
     const int bufferLen = 512;
     int bytesRead;
-    char buffer[512];
+    char buffer[bufferLen];
     if (!(bytesRead = read_from_socket(clientSocket, buffer, bufferLen)))
     {
         log_print("Failed to read from socket!");
         closesocket(clientSocket);
         return 1;
     }
-    if (!write_to_socket(clientSocket, buffer, bytesRead))
+    // TODO: Use read information to provide requested information and allow modification of data
+    char* output = json_dumps(sharedData->output, JSON_COMPACT);
+    if (write_to_socket(clientSocket, output, strlen(output)) != 0)
     {
         log_print("Failed to write to socket!");
         closesocket(clientSocket);
@@ -88,10 +90,15 @@ int read_from_socket(SOCKET socket, char* buffer, int bufferLen)
 
 int write_to_socket(SOCKET socket, char* buffer, int bufferLen)
 {
-    int sendResult = send(socket, buffer, bufferLen, 0);
-    if (sendResult == SOCKET_ERROR || sendResult != bufferLen)
+    int bytesSent = 0;
+    while (bytesSent < bufferLen)
     {
-        return -1;
+        int sendResult = send(socket, buffer + bytesSent, bufferLen, 0);
+        if (sendResult == SOCKET_ERROR)
+        {
+            return -1;
+        }
+        bytesSent += sendResult;
     }
     return 0;
 }
