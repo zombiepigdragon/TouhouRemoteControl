@@ -1,0 +1,13 @@
+target_sources(remote
+    PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}/read_data.c
+        ${CMAKE_CURRENT_LIST_DIR}/read_data.h
+        ${CMAKE_CURRENT_LIST_DIR}/remote_control.c
+        ${CMAKE_CURRENT_LIST_DIR}/remote_control.h
+        ${CMAKE_CURRENT_LIST_DIR}/server.c
+        ${CMAKE_CURRENT_LIST_DIR}/server.h
+        ${CMAKE_CURRENT_LIST_DIR}/server_threads.c
+        ${CMAKE_CURRENT_LIST_DIR}/server_threads.h
+        ${CMAKE_CURRENT_LIST_DIR}/shared_data.c
+        ${CMAKE_CURRENT_LIST_DIR}/shared_data.h
+)

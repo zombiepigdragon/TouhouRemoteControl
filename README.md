@@ -12,12 +12,11 @@ A plugin for [thcrap](https://github.com/thpatch/thcrap) that simplifies the pro
 
 ## Compiling
 As there is still quite a lot to do before that, do this instead:
-1) Setup a mingw compiler (Sorry, but I'm doing this on Linux. I couldn't run Visual Studio if I wanted to.)
-2) Adjust the Makefile for your machine (This shouldn't actually be needed, as long as `i686-w64-mingw32-gcc` is available)
-3) Run the command `make` in this directory.
-4) Place `remote.dll` into your `thcrap/bin` directory
-5) Copy the `thcrap_repo` folder as `zombie_pigdragon` into your `thcrap/repos` directory
-6) Add the plugin to a run configuration of your choice.
+1) Clone the repository: `git clone https://github.com/zombiepigdragon/TouhouRemoteControl.git`
+2) Run the traditional cmake build command: `mkdir TouhouRemoteControl/build && cd TouhouRemoteControl/build && cmake .. && make`
+3) Place `build/remote_control/remote.dll` into your `thcrap/bin` directory
+4) Copy the `build/thcrap_repo` folder as `zombie_pigdragon` into your `thcrap/repos` directory *(Developer's note: This should probably be done after removing build files from the directory)*
+5) Add the plugin to a run configuration of your choice.
 
 ## Usage
 ### Standard Users:

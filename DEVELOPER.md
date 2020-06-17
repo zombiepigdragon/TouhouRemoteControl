@@ -9,7 +9,7 @@ None of this is under warranty of any kind, it's just little notes that may or m
 3) Tie into thcrap better; cleanup and configuration updates would be good
 4) Actually support the games properly
 5) ~~Document *everything* so I actually understand my own code~~ (Now considered part of development process)
-6) (Maybe) Switch to `cmake` build system, allowing more direct Windows builds.
+6) ~~(Maybe) Switch to `cmake` build system, allowing more direct Windows builds.~~ Needs work for Windows but is now started.
 7) (Maybe) Add to thcrap launcher, if plugins with code are allowed
 8) (Maybe) Provide compatible programs for the sake of being usable
 
