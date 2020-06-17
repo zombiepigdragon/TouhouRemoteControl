@@ -112,7 +112,7 @@ int generate_shareddata(struct SharedData* sharedData, json_t* runconfig)
     log_print("Run configuration generated:\n");
     log_print(output);
     free(output);
-    sharedData->output = json_run_configuration;
+    sharedData->run_configuration = json_run_configuration;
     sharedData->output = json_output;
     return 0;
 }
