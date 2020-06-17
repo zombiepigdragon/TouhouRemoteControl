@@ -32,6 +32,7 @@ EXPORT int remote_mod_init(void)
 
 EXPORT int BP_main_loop(x86_reg_t *regs, json_t *bp_info)
 {
+    (void)regs, (void)bp_info; // The portable way to remove unused parameter warnings
     if (!lock_server_mutex())
     {
         log_print("Couldn't lock the server mutex.");
