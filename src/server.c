@@ -63,15 +63,18 @@ SOCKET accept_client(SOCKET listeningSocket) // FIXME: Blocks, make nonblocking
 int handle_connection(SOCKET clientSocket, struct SharedData* sharedData)
 {
     const int bufferLen = 512;
+    int bytesRead;
     char buffer[512];
-    if (!read_from_socket(clientSocket, buffer, bufferLen))
+    if (!(bytesRead = read_from_socket(clientSocket, buffer, bufferLen)))
     {
         log_print("Failed to read from socket!");
+        closesocket(clientSocket);
         return 1;
     }
-    if (!write_to_socket(clientSocket, buffer, bufferLen))
+    if (!write_to_socket(clientSocket, buffer, bytesRead))
     {
         log_print("Failed to write to socket!");
+        closesocket(clientSocket);
         return 2;
     }
     closesocket(clientSocket);
