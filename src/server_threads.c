@@ -68,17 +68,6 @@ int server_initialize(struct SharedData* data)
         log_print("Failed to acquire a server mutex, aborting.");
         return 1;
     }
-    // Check for a valid port
-    for (int length = strlen(data->port), i = 0; i < length; i++)
-    {
-        char digit = data->port[i];
-        if (digit < '0' || digit > '9')
-        {
-            log_printf("[Remote Control] The given port \"%s\" is invalid. Using default 8646.\n", data->port);
-            data->port = "8646";
-            break;
-        }
-    }
     serverState = SERVER_STARTING;
     if (!CreateThread(NULL, 0, server_threadmain, data, 0, NULL))
     {

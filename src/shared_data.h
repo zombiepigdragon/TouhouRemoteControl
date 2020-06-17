@@ -1,26 +1,21 @@
 #pragma once
 #include <stdint.h>
-// Information on the currently running game
-
-enum RemoteAddressTypes
-{
-    RA_SCORE
-};
-
-struct RemoteAddress
-{
-    void* game_address;
-    void* data_address;
-    size_t size;
-};
+#include <jansson.h>
 
 // The configuration and data from the game
 struct SharedData
 {
     const char* port;
-    struct RemoteAddress values[1];
-    uint32_t score;
+    json_t* run_configuration;
+    json_t* output;
 };
 
-// Fills in the GameData with the information of the shown event
-int create_remote_address(struct SharedData* shareddata, const char* name, void* game_address);
+// Validate and set the port,called by generate_shareddata, returns true if default was used, false otherwise
+int set_remote_port(struct SharedData* sharedData, json_t* json_port);
+
+// Validate and create the list of remote addresses for both our own runconfig and our output
+int process_remote_addresses(json_t* config_addresses, json_t* validated_addresses, json_t* output_data);
+
+// Process the runconfig and make a valid SharedData from it
+// Also sanitizes and validates input
+int generate_shareddata(struct SharedData* sharedData, json_t* runconfig);
