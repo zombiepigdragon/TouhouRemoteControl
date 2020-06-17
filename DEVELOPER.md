@@ -1,16 +1,17 @@
 # Developer Information
-This file contains what is essentially notes for anyone wanting to develop for this (including myself,) or any other thcrap plugin. It contains mostly information on how I retrieve/create various files, which be either committed or generated depending on when you see this and how much I've worked since. If there's something here you don't understand, just add an issue and I'll try to document it here.
+This file contains what is essentially notes for anyone wanting to develop for this (including myself,) or any other thcrap plugin. It contains mostly information on how I found most files needed for building, because that took way longer than it should have the first time. There is also information on how some subsystems work. If there's something here you don't understand, just add an issue and I'll try to document it here. 
 
 None of this is under warranty of any kind, it's just little notes that may or may not be helpful.
 
 # TODOS:
-1) Implement a more robust configuration system (arbitrary names for game specific functionality)
+1) ~~Implement a more robust configuration system (arbitrary names for game specific functionality)~~ (Done!)
 2) ~~Move syncing functionality to a breakpoint, allowing stepping by frame and sanely allowing multiple clients~~ (Done!)
 3) Tie into thcrap better; cleanup and configuration updates would be good
 4) Actually support the games properly
-5) Document *everything* so I actually understand my own code
-6) (Maybe) Add to thcrap launcher, if plugins with code are allowed
-7) (Maybe) Provide compatible programs for the sake of being usable
+5) ~~Document *everything* so I actually understand my own code~~ (Now considered part of development process)
+6) (Maybe) Switch to `cmake` build system, allowing more direct Windows builds.
+7) (Maybe) Add to thcrap launcher, if plugins with code are allowed
+8) (Maybe) Provide compatible programs for the sake of being usable
 
 # Included source file's sources
 
@@ -22,7 +23,7 @@ The most notable sources are:
    - thcrap/thcrap_tsa/src/*.h
 - jansson:
   - Wherever jansson.h comes from (I got it from a system dir)
-- Everything else I forgot (I'll replace this when it's generated (eg. this is useless documentation))
+- Everything else I forgot (I'll replace this when it's generated (eg. once this is useless documentation because builds will generate this section and the code for that will document it better))
 
 ## .lib files
 The .lib files in `/lib` are all generated from .def files. The command used to do this is 
@@ -42,4 +43,4 @@ These include
 
 Note that these will **ONLY** work when the functions are correctly exported, which is pretty easy to forget to do. Make sure not to do that.
 
-We simply spawn a new thread to run a server, and use it to handle connections. This is done with winsock, a handy and not POSIX compliant in the least library from Microsoft. See [/src/server.c](src/server.c) for some information about that.
+We simply spawn a new thread to run a server, and use it to handle connections. This is done with winsock, a handy and not POSIX compliant in the least library from Microsoft. See [/src/server.c](src/server.c) and [/src/server_threads.c](src/server_threads.c) for some information about that.
