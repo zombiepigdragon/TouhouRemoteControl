@@ -32,7 +32,7 @@ int process_full_frame(struct SharedData* sharedData)
         char buffer[bufferSize];
         if(!read_remote_address(buffer, json_item))
         {
-            log_printf("[Remote Control] Warning: error reading memory for %s. Removing key from known keys.\n", key);
+            remote_log_printf("[Remote Control] Warning: error reading memory for %s. Removing key from known keys.\n", key);
             json_object_del(json_remote_addresses, key);
             continue;
         }

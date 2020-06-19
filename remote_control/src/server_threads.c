@@ -27,7 +27,7 @@ DWORD WINAPI server_threadmain(LPVOID lpdwThreadParam)
     struct SharedData* sharedData = (struct SharedData*)lpdwThreadParam;
     if (!lock_server_mutex())
     {
-        log_print("Server thread failed to find server mutex, aborting.");
+        remote_log_puts("Server thread failed to find server mutex, aborting.");
         return 1;
     }
     if (!server_setup())
@@ -39,7 +39,7 @@ DWORD WINAPI server_threadmain(LPVOID lpdwThreadParam)
     SOCKET listenSocket = create_listening_socket(sharedData->port);
     if (listenSocket == INVALID_SOCKET)
     {
-        log_printf("[Remote Control] Failed to open port %s, aborting.\n", sharedData->port);
+        remote_log_printf("[Remote Control] Failed to open port %s, aborting.\n", sharedData->port);
         server_cleanup();
         serverState = SERVER_FAIL;
         unlock_server_mutex();
@@ -65,13 +65,13 @@ int server_initialize(struct SharedData* data)
     }
     if (!lock_server_mutex())
     {
-        log_print("Failed to acquire a server mutex, aborting.");
+        remote_log_puts("Failed to acquire a server mutex, aborting.");
         return 1;
     }
     serverState = SERVER_STARTING;
     if (!CreateThread(NULL, 0, server_threadmain, data, 0, NULL))
     {
-        log_print("Couldn't create thread, aborting.");
+        remote_log_puts("Couldn't create thread, aborting.");
     }
     do
     {

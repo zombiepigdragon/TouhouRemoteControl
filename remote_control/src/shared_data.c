@@ -12,7 +12,7 @@ int set_remote_port(struct SharedData* sharedData, json_t* json_port)
     }
     else
     {
-        log_print("No port set, using default.");
+        remote_log_puts("No port set, using default.");
         sharedData->port = DEFAULT_PORT;
     }
     // Check for a valid port
@@ -21,12 +21,12 @@ int set_remote_port(struct SharedData* sharedData, json_t* json_port)
         char digit = sharedData->port[i];
         if (digit < '0' || digit > '9')
         {
-            log_printf("[Remote Control] The given port \"%s\" is invalid. Using default.\n", sharedData->port);
+            remote_log_printf("[Remote Control] The given port \"%s\" is invalid. Using default.\n", sharedData->port);
             sharedData->port = DEFAULT_PORT;
             break;
         }
     }
-    log_printf("[Remote Control] Using port %s.\n", sharedData->port);
+    remote_log_printf("[Remote Control] Using port %s.\n", sharedData->port);
     return 1;
 }
 
@@ -35,7 +35,7 @@ int process_remote_addresses(json_t* config_addresses, json_t* validated_address
     int remote_address_count = json_object_size(config_addresses);
     if (!remote_address_count)
     {
-        log_print("No remote_addresses found.");
+        remote_log_puts("No remote_addresses found.");
         return 0;
     }
     const char* key;
@@ -44,7 +44,7 @@ int process_remote_addresses(json_t* config_addresses, json_t* validated_address
     json_object_foreach(config_addresses, key, json_item)
     {
         i++;
-        log_printf("[Remote Control] Remote address %d/%d: ", i, remote_address_count);
+        remote_log_printf("[Remote Control] Remote address %d/%d: ", i, remote_address_count);
 
         json_t* json_address = json_object_get(json_item, "addr");
         str_address_ret_t str_address_ret;
@@ -109,8 +109,8 @@ int generate_shareddata(struct SharedData* sharedData, json_t* runconfig)
 
     // For debugging, should probably remove before stable release
     char* output = json_dumps(json_run_configuration, JSON_INDENT(4));
-    log_print("Run configuration generated:\n");
-    log_print(output);
+    remote_log_puts("Run configuration generated:\n");
+    remote_log_puts(output);
     free(output);
     sharedData->run_configuration = json_run_configuration;
     sharedData->output = json_output;

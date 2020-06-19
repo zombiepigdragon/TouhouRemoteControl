@@ -1,5 +1,7 @@
 target_sources(remote
     PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}/logging.c
+        ${CMAKE_CURRENT_LIST_DIR}/logging.h
         ${CMAKE_CURRENT_LIST_DIR}/read_data.c
         ${CMAKE_CURRENT_LIST_DIR}/read_data.h
         ${CMAKE_CURRENT_LIST_DIR}/remote_control.c

@@ -67,7 +67,7 @@ int handle_connection(SOCKET clientSocket, struct SharedData* sharedData)
     char buffer[bufferLen];
     if (!(bytesRead = read_from_socket(clientSocket, buffer, bufferLen)))
     {
-        log_print("Failed to read from socket!");
+        remote_log_puts("Failed to read from socket!");
         closesocket(clientSocket);
         return 1;
     }
@@ -75,7 +75,7 @@ int handle_connection(SOCKET clientSocket, struct SharedData* sharedData)
     char* output = json_dumps(sharedData->output, JSON_COMPACT);
     if (write_to_socket(clientSocket, output, strlen(output)) != 0)
     {
-        log_print("Failed to write to socket!");
+        remote_log_puts("Failed to write to socket!");
         closesocket(clientSocket);
         return 2;
     }

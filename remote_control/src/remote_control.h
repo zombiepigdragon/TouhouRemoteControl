@@ -4,10 +4,7 @@
 #include <jansson.h>
 #include <thcrap.h>
 #include <thcrap_tsa.h>
-
-// Print a message to logs, tagging as from this plugin
-// Used mostly for debug prints
-void log_print(const char*);
+#include "logging.h"
 
 // Called very early in the thcrap start process, checks to make sure we're available
 EXPORT int thcrap_plugin_init(void);
