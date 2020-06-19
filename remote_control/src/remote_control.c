@@ -17,12 +17,17 @@ EXPORT int thcrap_plugin_init(void)
     return 0;
 }
 
-EXPORT int remote_mod_init(void)
+EXPORT void remote_mod_init(void)
 {
     remote_log_puts("Attempting to load json data.");
     ZeroMemory(&sharedData, sizeof(struct SharedData));
     generate_shareddata(&sharedData, runconfig_get());
-    return server_initialize(&sharedData); //0 if good, error is automatically logged otherwise
+    server_initialize(&sharedData); //0 if good, error is automatically logged otherwise
+}
+
+EXPORT void remote_mod_exit()
+{
+    server_shutdown();
 }
 
 EXPORT int BP_main_loop(x86_reg_t *regs, json_t *bp_info)

@@ -14,7 +14,10 @@ EXPORT int thcrap_plugin_init(void);
 /// The source is in /thcrap/thcrap/src/plugin.h:29
 
 // Called when everything is loaded, used to prepare data structures and the server
-EXPORT int remote_mod_init(void);
+EXPORT void remote_mod_init(void);
+
+// Called when the mod exits
+EXPORT void remote_mod_exit();
 
 // Breakpoint for main loop
 // Updates the server's struct

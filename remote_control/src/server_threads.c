@@ -50,11 +50,24 @@ DWORD WINAPI server_threadmain(LPVOID lpdwThreadParam)
     {
         unlock_server_mutex();
         SOCKET clientSocket = accept_client(listenSocket);
-        handle_connection(clientSocket, sharedData);
+        if (clientSocket != INVALID_SOCKET)
+        {
+            if (clientSocket == SOCKET_ERROR)
+            {
+                log_print("Socket error, continuing.");
+            }
+            else
+            {
+                handle_connection(clientSocket, sharedData);
+            }
+        }
         lock_server_mutex();
     } while (serverState == SERVER_SUCCESS);
     closesocket(listenSocket);
-    return server_cleanup();
+    int result = server_cleanup();
+    serverState = SERVER_SHUTDOWN;
+    unlock_server_mutex();
+    return result;
 }
 
 int server_initialize(struct SharedData* data)

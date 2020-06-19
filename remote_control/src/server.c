@@ -57,7 +57,21 @@ SOCKET create_listening_socket(const char* port)
 
 SOCKET accept_client(SOCKET listeningSocket) // FIXME: Blocks, make nonblocking
 {
-    return accept(listeningSocket, NULL, NULL);
+    TIMEVAL maxTime;
+    maxTime.tv_sec = 0;
+    maxTime.tv_usec = 0; // Make the call nonblocking
+    fd_set fdset;
+    FD_SET(listeningSocket, &fdset);
+    int result = select(0, &fdset, NULL, NULL, &maxTime);
+    switch (result)
+    {
+        case SOCKET_ERROR:
+            return SOCKET_ERROR;
+        case 0: // The number of connections available is the return value
+            return INVALID_SOCKET;
+        default:
+            return accept(listeningSocket, NULL, NULL);
+    }
 }
 
 int handle_connection(SOCKET clientSocket, struct SharedData* sharedData)
