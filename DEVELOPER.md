@@ -4,15 +4,12 @@ This file contains what is essentially notes for anyone wanting to develop for t
 None of this is under warranty of any kind, it's just little notes that may or may not be helpful.
 
 # TODOS:
-1) ~~Implement a more robust configuration system (arbitrary names for game specific functionality)~~ (Done!)
-2) ~~Move syncing functionality to a breakpoint, allowing stepping by frame and sanely allowing multiple clients~~ (Done!)
-3) Tie into thcrap better; ~~cleanup~~ (Done(?)) and configuration hotpatches would be good
-4) Come up with a list of functions and values to provide (and document them here!)
-5) Find the needed memory addresses for those values and functions.
-6) ~~Document *everything* so I actually understand my own code~~ (Now considered part of development process)
-7) ~~(Maybe) Switch to `cmake` build system, allowing more direct Windows builds.~~ Needs work for Windows but is now started.
-8) (Maybe) Add to thcrap launcher, if plugins with code are allowed
-9) (Maybe) Provide compatible programs for the sake of being usable
+1) Tie into thcrap better; ~~cleanup~~ (Done(?)) and configuration hotpatches would be good
+2) Come up with a list of functions and values to provide (and document them here!)
+3) Find the needed memory addresses for those values and functions.
+4) Make cmake able to build on any Linux and Windows (providing several toolchain files would do this)
+5) (Maybe) Add to thcrap launcher, if plugins with code are allowed
+6) Provide graphical editor for values used by program to demonstrate functionality.
 
 # Known bugs:
 - The threads are spaghetti, and this means that any change can and will break them. They need a rewrite by someone who knows C properly.
